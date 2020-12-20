@@ -1,5 +1,5 @@
 chart-dirs:
   - charts
 
-chart-repos:
-  - bitnami=https://charts.bitnami.com/bitnami
+# chart-repos:
+  # - bitnami=https://charts.bitnami.com/bitnami

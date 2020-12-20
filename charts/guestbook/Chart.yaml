@@ -1,5 +1,5 @@
 apiVersion: v2
-name: guestbook
+name: awesome-guestbook
 description: This is a Helm chart for a guestbook application that runs on Redis !
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -11,19 +11,18 @@ description: This is a Helm chart for a guestbook application that runs on Redis
 # a dependency of application charts to inject those utilities and functions into the rendering
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
-
 dependencies:
   - name: redis
     version: 12.1.x
     repository: https://charts.bitnami.com/bitnami
-
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.0
-
+version: 1.0.1
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: v4
-
+maintainers:
+- email: atechgirl2014@gmail.com
+  name: atechgirl
