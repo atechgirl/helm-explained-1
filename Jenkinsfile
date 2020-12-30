@@ -5,6 +5,14 @@ pipeline {
     }
 
     stages {
+        stage("Adding Dependencies repos") {
+            steps{
+                container("chart-testing") {
+                    sh "helm repo add bitnami https://charts.bitnami.com/bitnami"
+                }
+            }     
+        }
+
         stage("Lint") {
             steps {
                 container("chart-testing") {
