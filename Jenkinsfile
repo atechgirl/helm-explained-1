@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     container("chart-testing") {
-                        sh "git clone $(env.GITHUB_PAGES_REPO_URL) chart-repo"
+                        sh "git clone ${env.GITHUB_PAGES_REPO_URL} chart-repo"
                         def repoType
                         if (env.BRANCH_NAME == "master") {
                             repoType = "stable"
