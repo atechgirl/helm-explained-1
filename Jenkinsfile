@@ -8,14 +8,14 @@ pipeline {
         stage("Lint") {
             steps {
                 container("chart-testing") {
-                    sh "ct lint"
+                    sh "ct lint --debug"
                 }
             }
         }
         stage("Install & Test") {
             steps {
                 container("chart-testing") {
-                    sh "ct install --upgrade"
+                    sh "ct install --upgrade --debug"
                 }
             }
         }
