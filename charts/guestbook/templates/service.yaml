@@ -9,7 +9,7 @@ spec:
 {{- if has .Values.service.type $serviceTypes }}
   type: {{ .Values.service.type }}  
 {{- else }}
-  {{- fail "value 'service.type' should be 'ClusterIP' or 'NodePort'"}}
+  {{- fail "value 'service.type' should be 'ClusterIP' or 'LoadBalancer'"}}
 {{- end }}
   ports:
     - port: {{ .Values.service.port }}
