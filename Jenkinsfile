@@ -64,9 +64,11 @@ pipeline {
                         dir("chart-repo") {
                             sh "git add --all "
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}' "
-                            withCredentials([usernameColonPassword(credentialsId: 'github-auth', variable: 'USERPASS')]) {
+                            withCredentials([usernamePassword(credentialsId: 'github-auth', usernameVariable:'USERNAME' ,passwordVariable: 'USERPASS')]) {
                                 script {
-                                    def authRepo = env.GITHUB_PAGES_REPO_URL.replace("://", "://${USERPASS}@")
+                                    // sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/my-org/my-repo.git')
+                                    // https://github.com/atechgirl/awesome-charts.git
+                                    def authRepo = env.GITHUB_PAGES_REPO_URL.replace("://", "://${USERNAME}:${USERPASS}@")
                                     sh "git push ${authRepo} master"
                                 }
                             }
