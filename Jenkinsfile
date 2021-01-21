@@ -16,7 +16,7 @@ pipeline {
         stage("Lint") {
             steps {
                 container("chart-testing") {
-                    sh "ct lint --debug --chart-yaml-schema=./chart_schema.yaml"
+                    sh "ct lint --debug"
                 }
             }
         }
