@@ -66,8 +66,7 @@ pipeline {
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}' "
                             withCredentials([usernamePassword(credentialsId: 'github-auth', usernameVariable:'USERNAME' ,passwordVariable: 'USERPASS')]) {
                                 script {
-                                    def authRepo = "https://${USERNAME}:${USERPASS}@github.com/atechgirl/awesome-charts.git"
-                                    sh "git push ${authRepo} master"
+                                    sh('git push https://${USERNAME}:${USERPASS}@github.com/atechgirl/awesome-charts.git master')
                                 }
                             }
                         }
