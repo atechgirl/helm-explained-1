@@ -64,12 +64,8 @@ pipeline {
                         dir("chart-repo") {
                             sh "git add --all "
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}' "
-                            withCredentials([usernamePassword(credentialsId: 'github-auth', usernameVariable:'USERNAME' ,passwordVariable: 'USERPASS')]) {
-                                script {
-                                    sshagent(credentials: ['github-auth-ssh']) {
-                                        ssh('git push git@github.com:atechgirl/awesome-charts.git main')
-                                    }
-                                }
+                            sshagent(credentials: ['github-auth-ssh']) {
+                                sh('git push git@github.com:atechgirl/awesome-charts.git main')
                             }
                         }
                     }
