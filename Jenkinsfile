@@ -66,7 +66,7 @@ pipeline {
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}' "
                             withCredentials([usernamePassword(credentialsId: 'github-auth', usernameVariable:'USERNAME' ,passwordVariable: 'USERPASS')]) {
                                 script {
-                                    sh('git push https://${USERNAME}:${USERPASS}@github.com/atechgirl/awesome-charts.git master')
+                                    sh('git push https://${USERNAME}:${USERPASS}@github.com/atechgirl/awesome-charts.git main')
                                 }
                             }
                         }
