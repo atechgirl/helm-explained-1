@@ -65,7 +65,7 @@ pipeline {
                             sh "git add --all "
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}' "
                             sshagent(credentials: ['github-auth-ssh']) {
-                                sh('git push git@github.com:atechgirl/awesome-charts.git main')
+                                sh("git push ${env.GITHUB_PAGES_REPO_URL} main")
                             }
                         }
                     }
