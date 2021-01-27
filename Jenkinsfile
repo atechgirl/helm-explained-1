@@ -66,7 +66,7 @@ pipeline {
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}' "
                             sshagent(credentials: ['github-auth-ssh']) {
                                 sh("""
-                                    ssh -T git@github.com -o StrictHostKeyChecking=no")
+                                    ssh -T git@github.com -o StrictHostKeyChecking=no
                                     git remote set-url origin 'git@github.com:atechgirl/awesome-charts.git'
                                     git push origin main
                                 """)
