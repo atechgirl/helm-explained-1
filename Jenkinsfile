@@ -67,10 +67,10 @@ pipeline {
                             sshagent(credentials: ['github-auth-ssh']) {
                                 sh("ssh -T git@github.com -o StrictHostKeyChecking=no")
                             }
-                            withCredentials([sshUserPrivateKey(credentialsId: 'github-auth-ssh')]) {
-                                sh("git remote set-url origin 'git@github.com:atechgirl/awesome-charts.git'") 
-                                sh("git push origin main")
-                            }
+                            // withCredentials([sshUserPrivateKey(credentialsId: 'github-auth-ssh')]) {
+                            //     sh("git remote set-url origin 'git@github.com:atechgirl/awesome-charts.git'") 
+                            //     sh("git push origin main")
+                            // }
                         }
                     }
                 }
