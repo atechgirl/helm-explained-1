@@ -64,7 +64,7 @@ pipeline {
                         dir("chart-repo") {
                             sh "git add --all "
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}' "
-                            sshagent(credentials: ['github-auth-ssh']) {
+                            withCredentials([sshUserPrivateKey(credentialsId: 'github-auth-ssh')]) {
                                 sh("""
                                     ssh -T git@github.com -o StrictHostKeyChecking=no
                                     git remote set-url origin 'git@github.com:atechgirl/awesome-charts.git'
