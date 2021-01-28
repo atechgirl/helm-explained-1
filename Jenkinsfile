@@ -62,10 +62,10 @@ pipeline {
                         sh "git config --global user.name 'chartrepo-bot'"
 
                         dir("chart-repo") {
+                            git url: 'git@github.com:atechgirl/awesome-charts.git', branch: 'main', credentialsId: 'github-auth-ssh'
                             sh "git add --all "
                             sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}'"
-                            sh "git remote set-url origin 'git@github.com:atechgirl/awesome-charts.git'"
-                            sh "git push origin main"
+                            sh "git pushn"
                             // script {
                             //     sshagent(credentials: ['github-auth-ssh']) {
                             //     sh """
