@@ -64,7 +64,7 @@ pipeline {
                         dir("chart-repo") {
                             sshagent(['github-auth-ssh']) {
                                 sh """
-                                    ssh git@github.com 
+                                    ssh -o StrictHostKeyChecking=no git@github.com 
                                     git remote set-url origin 'git@github.com:atechgirl/awesome-charts.git'
                                     git push origin main
                                 """
