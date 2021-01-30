@@ -63,7 +63,7 @@ pipeline {
 
                         dir("chart-repo") {
                             withCredentials([sshUserPrivateKey(credentialsId: 'github-auth-ssh', keyFileVariable: 'GITHUB_KEY')]) {
-                                sh 'ssh -i $GITHUB_KEY git@github.com'
+                                sh 'ssh -i $GITHUB_KEY -o StrictHostKeyChecking=no git@github.com' 
                                 sh "git remote set-url origin 'git@github.com:atechgirl/awesome-charts.git'"
                                 sh 'git push origin main'
                             }
