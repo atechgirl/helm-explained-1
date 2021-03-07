@@ -1,5 +1,5 @@
 githubPagesRepoUrl: https://github.com/atechgirl/awesome-charts.git
-githubPagesSiteUrl: https://atechgirl.github.io/awesome-charts/stable
+githubPagesSiteUrl: https://atechgirl.github.io/awesome-charts/staging
 githubForkUrl: git@github.com:atechgirl/helm-explained-1.git
 javaOpts: >-
   -Dhudson.slaves.NodeProvisioner.initialDelay=0

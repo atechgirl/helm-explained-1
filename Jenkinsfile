@@ -90,7 +90,7 @@ pipeline {
                 script {
                     container("chart-testing") {
                         dir ("ci-cd/charts/guestbook") {
-                            sh "helm upgrade --install guestbook-${env.BRANCH_NAME} awesome-charts/guestbook --values qa/values.yaml -n qa --wait"
+                            sh "helm upgrade --install guestbook-${env.BRANCH_NAME} awesome-charts/awesome-guestbook --values qa/values.yaml -n qa --wait"
                         }
                     }
                 }
