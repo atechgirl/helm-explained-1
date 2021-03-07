@@ -1,0 +1,7 @@
+
+env:
+  - name: ENVIRONMENT
+    value: qa
+service:
+  type: ClusterIP
+  port: 80

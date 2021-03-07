@@ -1,0 +1,71 @@
+githubPagesRepoUrl: https://github.com/atechgirl/awesome-charts.git
+githubPagesSiteUrl: https://atechgirl.github.io/awesome-charts/stable
+githubForkUrl: git@github.com:atechgirl/helm-explained-1.git
+javaOpts: >-
+  -Dhudson.slaves.NodeProvisioner.initialDelay=0
+  -Dhudson.model.LoadStatistics.decay=0.7
+  -Dhudson.slaves.NodeProvisioner.MARGIN=30
+  -Dhudson.slaves.NodeProvisioner.MARGIN0=0.6
+  -XX:+UnlockExperimentalVMOptions
+  -XX:+UseCGroupMemoryLimitForHeap
+  -XX:MaxRAMFraction=2
+  -XshowSettings:vm
+  -Djenkins.install.runSetupWizard=false
+agent:
+  enabled: true
+  podTemplates: 
+    chart-testing-agent: |
+      - name: chart-testing-agent
+        label: chart-testing-agent
+        idleMinutes: 0
+        namespace: {{ .Release.Namespace }}
+        containers:
+          - name: chart-testing
+            image: quay.io/helmpack/chart-testing:latest
+            ttyEnabled: true
+            resourceLimitCpu: 200m
+            resourceLimitMemory: 500Mi
+        envVars:
+          - envVar:
+              key: GITHUB_PAGES_REPO_URL
+              value: {{ required "value 'githubPagesRepoUrl' is required" .Values.githubPagesRepoUrl }}
+          - envVar:
+              key: GITHUB_FORK_URL
+              value: {{ .Values.githubForkUrl }}
+          - envVar:
+              key: GITHUB_PAGES_SITE_URL
+              value: {{ required "value 'githubPagesSiteUrl' is required" .Values.githubPagesSiteUrl }}
+controller:
+  healthProbes: false
+  installPlugins:
+    - kubernetes:1.29.2
+    - workflow-aggregator:2.6
+    - git:4.5.2
+    - configuration-as-code:1.47
+    - job-dsl:1.77
+    - ssh-agent:1.20
+    - kubernetes-credentials-provider:0.15
+  JCasC:
+    configScripts: 
+      jobs: |
+        jobs:
+          - script: >
+              multibranchPipelineJob('Test and Publish Helm Charts') {
+                factory {
+                  workflowBranchProjectFactory {
+                    scriptPath('Jenkinsfile')
+                  }
+                }
+                branchSources {
+                  git {
+                    id('helm-explained')
+                    remote({{ required "value 'githubForkUrl' is required" .Values.githubForkUrl | quote }})
+                    credentialsId('github-auth-ssh')
+                  }
+                }
+                orphanedItemStrategy {
+                  discardOldItems {
+                    numToKeep(1)
+                  }
+                }
+              }

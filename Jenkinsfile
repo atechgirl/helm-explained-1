@@ -27,6 +27,7 @@ pipeline {
                 }
             }
         }
+
         stage("Package Charts") {
             steps {
                 script {
@@ -72,6 +73,25 @@ pipeline {
                             }
                         }
 
+                    }
+                }
+            }
+        }
+        stage("Setup remote helm repo") {
+            steps {
+                container("chart-testing") {
+                    sh "helm repo add awesome-charts ${env.GITHUB_PAGES_SITE_URL}"
+                }
+            }
+        }
+
+        stage("Deploy Guestbook chart to QA") {
+            steps {
+                script {
+                    container("chart-testing") {
+                        dir ("ci-cd/charts/guestbook") {
+                            sh "helm upgrade --install guestbook-${env.BRANCH_NAME} awesome-charts/guestbook --values qa/values.yaml -n qa --wait"
+                        }
                     }
                 }
             }
